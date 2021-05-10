@@ -35,7 +35,36 @@ public class SingletonMarketPlace {
     // As it is a singleton, it is the only instance of the market
     private static SingletonMarketPlace instance = new SingletonMarketPlace();
     
-    private final ArrayList<MarketOrder> buyOrders;
+    // ArrayLists with the MarketOrders
+    public final ArrayList<MarketOrder> buyOrders;
+    public final ArrayList<MarketOrder> sellOrders;
+    
+    // PRIVATE CONSTRUCTOR THAT IS JUST INSTANCIATED FROM THE STATIC VARIABLE
+    // TO ENSURE THERE IS JUST ONE INSTANCE OF IT
+    private SingletonMarketPlace(){
+        buyOrders = new ArrayList<>();
+        sellOrders = new ArrayList<>();
+    }
+    
+    /**
+     * Add Market Order to the Market Place
+     * @param marketOrder new order to be added in the Market Place 
+     */
+    protected void addMarketOrder(MarketOrder marketOrder){
+        if (marketOrder.getOrderType() == MarketOrder.OrderType.BUY){
+            buyOrders.add(marketOrder);
+        }
+        else if (marketOrder.getOrderType() == MarketOrder.OrderType.SELL){
+            sellOrders.add(marketOrder);
+        }
+    }
+    
+    /**
+     * @return unique instance of the class SingletonMarketPlace
+     */
+    public static SingletonMarketPlace getInstance(){
+        return instance;
+    }
     
     
     

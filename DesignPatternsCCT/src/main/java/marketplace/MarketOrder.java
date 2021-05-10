@@ -24,7 +24,6 @@
 package marketplace;
 
 import com.cct.ie.designpatternscct.Depot;
-import com.cct.ie.designpatternscct.products.Product;
 import java.util.UUID;
 
 /**
@@ -44,17 +43,19 @@ public class MarketOrder {
     private final String ID;
     private final OrderType orderType;
     private final Depot depot;
-    private final Product product;
+    private final String productName;
     private int quantity;
     private Status status;
     
-    public MarketOrder(OrderType orderType, Depot depot, Product product, int qty){
+    public MarketOrder(OrderType orderType, Depot depot, String productName, int qty){
         this.ID = UUID.randomUUID().toString();
         this.orderType = orderType;
         this.depot = depot;
-        this.product = product;
+        this.productName = productName;
         this.quantity = qty;
         this.status = Status.PROCESSING;
+        // Add Market Order to the Market Place
+        SingletonMarketPlace.getInstance().addMarketOrder(this);
     }
     
     public String getID(){
@@ -69,8 +70,8 @@ public class MarketOrder {
         return this.depot;
     }
     
-    public Product getProduct(){
-        return this.product;
+    public String getProduct(){
+        return this.productName;
     }
     
     public int getQuantity(){
@@ -91,12 +92,16 @@ public class MarketOrder {
         return this.quantity;
     }
     
+    public Status getStatus(){
+        return this.status;
+    }
+    
     @Override
     public String toString(){
         return "ID: "+this.ID
                 +"\t Order Type: "+this.orderType.toString()
-                +"\t Depot: "+ this.depot.getID()
-                +"\t Product: "+ this.product.getName()
+                +"\t Depot UUID: "+ this.depot.getID()
+                +"\t Product: "+ this.productName
                 +"\t Quantity: "+ this.quantity;
     }
 }

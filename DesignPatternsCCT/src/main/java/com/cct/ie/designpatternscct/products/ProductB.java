@@ -24,16 +24,16 @@
 package com.cct.ie.designpatternscct.products;
 
 import com.cct.ie.designpatternscct.Company;
+import com.cct.ie.designpatternscct.Depot;
 
 /**
- *
+ *ß
  * @author panchop
  */
 public class ProductB extends Product {
     
     // constructor
-    public ProductB(String name, Company madeBy){
-        this.name = name;
-        this.madeBy = madeBy;
+    public ProductB(String name, Company madeBy, Depot depot){
+        super(name, madeBy, depot);
     }
 }

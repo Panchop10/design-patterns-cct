@@ -23,9 +23,9 @@
  */
 package com.cct.ie.designpatternscct;
 
-import com.cct.ie.designpatternscct.factory.ProductFactory;
-import com.cct.ie.designpatternscct.products.Product;
+import java.util.ArrayList;
 import marketplace.MarketOrder;
+import marketplace.SingletonMarketPlace;
 
 /**
  *
@@ -33,16 +33,27 @@ import marketplace.MarketOrder;
  */
 public class Main {
     public static void main(String[] args) {
-        Company c = new Company.CompanyBuilder("Big A").build();
-        System.out.println(c);
+        SimulatorFacade.createCompanies();
+        SimulatorFacade.printCompanies();
+        SimulatorFacade.trade();
         
-        Product pA = ProductFactory.getProduct("A", c);
-        System.out.println(pA);
+        ArrayList<MarketOrder> buymo = SingletonMarketPlace.getInstance().buyOrders;
+        ArrayList<MarketOrder> sellmo = SingletonMarketPlace.getInstance().sellOrders;
         
-        Depot d = new Depot.DepotBuilder(c, 10, 5, 50).build();
-        System.out.println(d);
+        System.out.println("********************BUY**********************");
+        for(MarketOrder mo: buymo){
+            System.out.println(mo);
+        }
         
-        MarketOrder mo = new MarketOrder(MarketOrder.OrderType.BUY, d, pA, 10);
-        System.out.println(mo);
+        System.out.println("********************SELL**********************");
+        for(MarketOrder mo: sellmo){
+            System.out.println(mo);
+        }
+        
+        System.out.println("BUYS: " + buymo.size());
+        System.out.println("SELLS: " + sellmo.size());
+        
+        
+
     }
 }

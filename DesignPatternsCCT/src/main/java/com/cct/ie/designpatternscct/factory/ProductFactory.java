@@ -24,6 +24,7 @@
 package com.cct.ie.designpatternscct.factory;
 
 import com.cct.ie.designpatternscct.Company;
+import com.cct.ie.designpatternscct.Depot;
 import com.cct.ie.designpatternscct.products.Product;
 import com.cct.ie.designpatternscct.products.ProductA;
 import com.cct.ie.designpatternscct.products.ProductB;
@@ -36,14 +37,14 @@ import com.cct.ie.designpatternscct.products.ProductC;
 public class ProductFactory {
     
     // return the product depending on the name.
-    public static Product getProduct(String name, Company madeBy){
+    public static Product getProduct(String name, Company madeBy, Depot depot){
         switch(name){
             case "A":
-                return new ProductA(name, madeBy);
+                return new ProductA(name, madeBy, depot);
             case "B":
-                return new ProductB(name, madeBy);
+                return new ProductB(name, madeBy, depot);
             case "C":
-                return new ProductC(name, madeBy);
+                return new ProductC(name, madeBy, depot);
             default:
                 System.out.println(
                         "No product was found with that name, please try again"

@@ -24,6 +24,7 @@
 package com.cct.ie.designpatternscct.products;
 
 import com.cct.ie.designpatternscct.Company;
+import com.cct.ie.designpatternscct.Depot;
 
 /**
  *
@@ -36,6 +37,14 @@ public abstract class Product {
     protected int weight;
     protected String description;
     protected Company madeBy;
+    protected Depot depot;
+    
+    // Common constructor for all the products
+    protected Product(String name, Company madeBy, Depot depot){
+        this.name = name;
+        this.madeBy = madeBy;
+        this.depot = depot;
+    }
     
     // common methods for all products
     public String getName(){
@@ -66,9 +75,15 @@ public abstract class Product {
         return this.madeBy;
     }
     
+    public Depot getDepot(){
+        return this.depot;
+    }
+    
     @Override
     public String toString(){
-        return "Product: "+this.name+" \t Made by: "+this.madeBy.getName();
+        return "Product: "+this.name
+                +"\t Made by: "+this.madeBy.getName()
+                +"\t Depot UUID: "+this.depot.getID();
     }
     
 }

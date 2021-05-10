@@ -24,6 +24,7 @@
 package com.cct.ie.designpatternscct.products;
 
 import com.cct.ie.designpatternscct.Company;
+import com.cct.ie.designpatternscct.Depot;
 
 /**
  *
@@ -32,9 +33,8 @@ import com.cct.ie.designpatternscct.Company;
 public class ProductA extends Product {
     
     // constructor
-    public ProductA(String name, Company madeBy){
-        this.name = name;
-        this.madeBy = madeBy;
+    public ProductA(String name, Company madeBy, Depot depot){
+        super(name, madeBy, depot);
     }
     
 }

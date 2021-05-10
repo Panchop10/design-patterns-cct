@@ -23,6 +23,8 @@
  */
 package com.cct.ie.designpatternscct;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author panchop
@@ -32,6 +34,7 @@ public class Company {
     private String address;
     private String vatNumber;
     private boolean active;
+    private ArrayList<Depot> depots = new ArrayList<>();
     
     // Private constructor that takes the builder object.
     private Company(CompanyBuilder builder){
@@ -63,6 +66,14 @@ public class Company {
     
     public void deactivate(){
         this.active = false;
+    }
+    
+    public ArrayList<Depot> getDepots(){
+        return this.depots;
+    }
+    
+    public void addDepot(Depot depot){
+        this.depots.add(depot);
     }
     
     @Override

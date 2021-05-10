@@ -50,6 +50,9 @@ public class Depot {
         this.priceDelivery = builder.priceDelivery;
         this.balance = builder.balance;
         
+        // Add depot to its company
+        this.company.addDepot(this);
+        
     }
     
     public String getID(){
@@ -92,6 +95,16 @@ public class Depot {
     
     public int getTotalExternalProducts(){
         return this.externalProducts.size();
+    }
+    
+    public int getTotalExternalProducts(String productName){
+        int auxCounter = 0;
+        
+        for(Product product: externalProducts){
+            if (product.getName().equalsIgnoreCase(productName)) auxCounter++;
+        }
+        
+        return auxCounter;
     }
     
     public void addExternalProducts(Product product){
