@@ -28,6 +28,8 @@ import com.cct.ie.designpatternscct.products.Product;
 import java.util.ArrayList;
 import java.util.Random;
 import marketplace.MarketOrder;
+import marketplace.MarketTransaction;
+import marketplace.SingletonMarketPlace;
 
 /**
  *
@@ -82,8 +84,8 @@ public class SimulatorFacade {
                 Depot auxDepot = new Depot.DepotBuilder(
                         company, // company
                         getRandomInt(
-                                PARAMS.MIN_NATIVE.value(),
-                                PARAMS.MAX_NATIVE.value()
+                                PARAMS.MIN_PROD_PRICE.value(),
+                                PARAMS.MAX_PROD_PRICE.value()
                         ), // native product price
                         getRandomInt(
                                 PARAMS.MIN_DELIVERY_PRICE.value(),
@@ -229,13 +231,24 @@ public class SimulatorFacade {
         }
     }
     
+    
+    // This method does 2 tradings
+    // The first one tries to get external products 50% and 50%
+    // The second one, trades the missing products in each depot.
+    public static void startTrading(){
+        trade();
+        trade();
+    }
+    
     /**
      * Trade method, than will check the amount of native product per depot
      * and it will sell the surplus, then it will check the external product
      * and it will send Market Orders to buy the product needed.
      * All this job will be passed to the Market Place.
+     * At the end of the function when all the orders have been placed
+     * the system will start trading between companies.
      */
-    public static void trade(){
+    private static void trade(){
         for(Company company: companies){
             
             // SET VALUES FOR NATIVE PRODUCT AND EXTERNAL PRODUCT
@@ -312,7 +325,10 @@ public class SimulatorFacade {
             }
         }
         
+        // All the transaction process ocurrs here
+        SingletonMarketPlace.getInstance().startTrade();
     }
+    
     
     /***************************************************************************
     *    Title: How to generate random integers within a specific range in Java
@@ -325,6 +341,32 @@ public class SimulatorFacade {
     private static int getRandomInt(int min, int max){
         Random rand = new Random();
         return rand.nextInt((max - min) + 1) + min;
+    }
+    
+    public static void printTransactions(){
+        for(MarketTransaction auxMT: SingletonMarketPlace.getInstance().getMarketTransactions()){
+            System.out.println(auxMT);
+        }
+        
+        System.out.println("Total transactions: "+ SingletonMarketPlace.getInstance().getMarketTransactions().size());
+    }
+    
+    public static void printTransactions(String company){
+        System.out.println("*********** AS SELLER ************");
+        for(MarketTransaction auxMT: SingletonMarketPlace.getInstance().getMarketTransactions()){
+            if(auxMT.getSeller().getCompany().getName().equals(company)){
+                System.out.println(auxMT);
+            }
+            
+        }
+        
+        System.out.println("*********** AS BUYER ************");
+        for(MarketTransaction auxMT: SingletonMarketPlace.getInstance().getMarketTransactions()){
+            if(auxMT.getBuyer().getCompany().getName().equals(company)){
+                System.out.println(auxMT);
+            }
+            
+        }
     }
     
     public static void printCompanies(){
@@ -348,6 +390,33 @@ public class SimulatorFacade {
 
         for(Depot depot: companyC.getDepots()){
             System.out.println(depot);
+        }
+    }
+    
+    public static void printCompany(String company){
+        Company companyA = companies.get(0);
+        Company companyB = companies.get(1);
+        Company companyC = companies.get(2);
+        
+        switch (company) {
+            case "Big A":
+                System.out.println(companyA);
+                for(Depot depot: companyA.getDepots()){
+                    System.out.println(depot);
+                }   break;
+            case "Big B":
+                System.out.println(companyB);
+                for(Depot depot: companyB.getDepots()){
+                    System.out.println(depot);
+                }   break;
+            case "Big C":
+                System.out.println(companyC);
+                for(Depot depot: companyC.getDepots()){
+                    System.out.println(depot);
+                }   break;
+            default:
+                System.out.println("Not a valid company.");
+                break;
         }
     }
     

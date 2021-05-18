@@ -21,20 +21,37 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.cct.ie.designpatternscct;
+package marketplace.chainofresponsibility;
+
+import com.cct.ie.designpatternscct.Depot;
 
 /**
  *
  * @author panchop
  */
-public class Main {
-    public static void main(String[] args) {
-        SimulatorFacade.createCompanies();
-        SimulatorFacade.startTrading();
-        
-        // display menu for user.
-        new MenuView();
-        
+public class CheckBudget implements ValidatorLink {
+    
+    ValidatorLink nextLink;
 
+    @Override
+    public void setNextLink(ValidatorLink nextLink) {
+        this.nextLink = nextLink;
     }
+
+    @Override
+    public boolean validate(Depot depotSeller, Depot depotBuyer, String product, int quantity) {
+        int priceProduct = depotSeller.getPriceDelivery() + depotSeller.getPriceNativeProduct();
+        int budgetBuyer = depotBuyer.getBalance();
+        
+        
+        // check if the new stock of external product of the buyer would be
+        // greater than the maximum possible after the transaction
+        if (budgetBuyer >= priceProduct*quantity){
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+    
 }

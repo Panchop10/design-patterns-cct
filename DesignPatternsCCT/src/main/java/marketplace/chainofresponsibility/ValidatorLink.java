@@ -21,20 +21,17 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.cct.ie.designpatternscct;
+package marketplace.chainofresponsibility;
+
+import com.cct.ie.designpatternscct.Depot;
 
 /**
  *
  * @author panchop
  */
-public class Main {
-    public static void main(String[] args) {
-        SimulatorFacade.createCompanies();
-        SimulatorFacade.startTrading();
-        
-        // display menu for user.
-        new MenuView();
-        
-
-    }
+public interface ValidatorLink {
+    
+    void setNextLink(ValidatorLink nextLink);
+    
+    boolean validate(Depot depotSeller, Depot depotBuyer, String product, int quantity);
 }

@@ -21,20 +21,37 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.cct.ie.designpatternscct;
+package marketplace.chainofresponsibility;
+
+import com.cct.ie.designpatternscct.Depot;
+import com.cct.ie.designpatternscct.SimulatorFacade;
 
 /**
  *
  * @author panchop
  */
-public class Main {
-    public static void main(String[] args) {
-        SimulatorFacade.createCompanies();
-        SimulatorFacade.startTrading();
-        
-        // display menu for user.
-        new MenuView();
-        
+public class CheckNativeProduct implements ValidatorLink {
+    
+    ValidatorLink nextLink;
 
+    @Override
+    public void setNextLink(ValidatorLink nextLink) {
+        this.nextLink = nextLink;
     }
+
+    @Override
+    public boolean validate(Depot depotSeller, Depot depotBuyer, String product, int quantity) {
+        
+        int totalNativeSeller = depotSeller.getTotalNativeProducts();
+
+        // check if the new stock of native product of the seller would be
+        // greater than the minimum available
+        if (totalNativeSeller - quantity >= SimulatorFacade.PARAMS.MIN_NATIVE.value()){
+            return nextLink.validate(depotSeller, depotBuyer, product, quantity);
+        }
+        else {
+            return false;
+        }
+    }
+    
 }

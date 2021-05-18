@@ -111,6 +111,13 @@ public class Depot {
         this.externalProducts.add(product);
     }
     
+    // add more than 1 external product
+    public void addExternalProducts(Product product, int quantity){
+        for (int i = 0; i < quantity; i++) {
+            this.externalProducts.add(product);
+        }
+    }
+    
     public Company getCompany(){
         return this.company;
     }
