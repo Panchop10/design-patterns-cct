@@ -21,16 +21,18 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package marketplace;
+package com.cct.ie.designpatternscct.marketplace;
 
+import com.cct.ie.designpatternscct.marketplace.MarketTransaction;
+import com.cct.ie.designpatternscct.marketplace.MarketOrder;
 import com.cct.ie.designpatternscct.products.Product;
 import java.util.ArrayList;
 import java.util.Date;
-import marketplace.chainofresponsibility.CheckBudget;
-import marketplace.chainofresponsibility.CheckExternalProduct;
-import marketplace.chainofresponsibility.CheckNativeProduct;
-import marketplace.chainofresponsibility.CheckTransaction;
-import marketplace.chainofresponsibility.ValidatorLink;
+import com.cct.ie.designpatternscct.marketplace.chainofresponsibility.CheckBudget;
+import com.cct.ie.designpatternscct.marketplace.chainofresponsibility.CheckExternalProduct;
+import com.cct.ie.designpatternscct.marketplace.chainofresponsibility.CheckNativeProduct;
+import com.cct.ie.designpatternscct.marketplace.chainofresponsibility.CheckTransaction;
+import com.cct.ie.designpatternscct.marketplace.chainofresponsibility.ValidatorLink;
 
 /**
  *

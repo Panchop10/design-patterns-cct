@@ -21,7 +21,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package marketplace.chainofresponsibility;
+package com.cct.ie.designpatternscct.marketplace.chainofresponsibility;
 
 import com.cct.ie.designpatternscct.Depot;
 
@@ -29,25 +29,9 @@ import com.cct.ie.designpatternscct.Depot;
  *
  * @author panchop
  */
-public class CheckTransaction implements ValidatorLink {
+public interface ValidatorLink {
     
-    ValidatorLink nextLink;
-
-    @Override
-    public void setNextLink(ValidatorLink nextLink) {
-        this.nextLink = nextLink;
-    }
-
-    @Override
-    public boolean validate(Depot depotSeller, Depot depotBuyer, String product, int quantity) {
-        
-        // check if the quantity to trade is greater than 0
-        if (quantity > 0){
-            return nextLink.validate(depotSeller, depotBuyer, product, quantity);
-        }
-        else {
-            return false;
-        }
-    }
+    void setNextLink(ValidatorLink nextLink);
     
+    boolean validate(Depot depotSeller, Depot depotBuyer, String product, int quantity);
 }

@@ -21,16 +21,15 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package marketplace.chainofresponsibility;
+package com.cct.ie.designpatternscct.marketplace.chainofresponsibility;
 
 import com.cct.ie.designpatternscct.Depot;
-import com.cct.ie.designpatternscct.SimulatorFacade;
 
 /**
  *
  * @author panchop
  */
-public class CheckNativeProduct implements ValidatorLink {
+public class CheckBudget implements ValidatorLink {
     
     ValidatorLink nextLink;
 
@@ -41,13 +40,14 @@ public class CheckNativeProduct implements ValidatorLink {
 
     @Override
     public boolean validate(Depot depotSeller, Depot depotBuyer, String product, int quantity) {
+        int priceProduct = depotSeller.getPriceDelivery() + depotSeller.getPriceNativeProduct();
+        int budgetBuyer = depotBuyer.getBalance();
         
-        int totalNativeSeller = depotSeller.getTotalNativeProducts();
-
-        // check if the new stock of native product of the seller would be
-        // greater than the minimum available
-        if (totalNativeSeller - quantity >= SimulatorFacade.PARAMS.MIN_NATIVE.value()){
-            return nextLink.validate(depotSeller, depotBuyer, product, quantity);
+        
+        // check if the new stock of external product of the buyer would be
+        // greater than the maximum possible after the transaction
+        if (budgetBuyer >= priceProduct*quantity){
+            return true;
         }
         else {
             return false;

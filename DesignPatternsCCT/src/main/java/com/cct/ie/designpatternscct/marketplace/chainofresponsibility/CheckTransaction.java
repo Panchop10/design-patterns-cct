@@ -21,7 +21,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package marketplace.chainofresponsibility;
+package com.cct.ie.designpatternscct.marketplace.chainofresponsibility;
 
 import com.cct.ie.designpatternscct.Depot;
 
@@ -29,7 +29,7 @@ import com.cct.ie.designpatternscct.Depot;
  *
  * @author panchop
  */
-public class CheckBudget implements ValidatorLink {
+public class CheckTransaction implements ValidatorLink {
     
     ValidatorLink nextLink;
 
@@ -40,14 +40,10 @@ public class CheckBudget implements ValidatorLink {
 
     @Override
     public boolean validate(Depot depotSeller, Depot depotBuyer, String product, int quantity) {
-        int priceProduct = depotSeller.getPriceDelivery() + depotSeller.getPriceNativeProduct();
-        int budgetBuyer = depotBuyer.getBalance();
         
-        
-        // check if the new stock of external product of the buyer would be
-        // greater than the maximum possible after the transaction
-        if (budgetBuyer >= priceProduct*quantity){
-            return true;
+        // check if the quantity to trade is greater than 0
+        if (quantity > 0){
+            return nextLink.validate(depotSeller, depotBuyer, product, quantity);
         }
         else {
             return false;

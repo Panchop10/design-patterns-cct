@@ -27,9 +27,9 @@ import com.cct.ie.designpatternscct.factory.ProductFactory;
 import com.cct.ie.designpatternscct.products.Product;
 import java.util.ArrayList;
 import java.util.Random;
-import marketplace.MarketOrder;
-import marketplace.MarketTransaction;
-import marketplace.SingletonMarketPlace;
+import com.cct.ie.designpatternscct.marketplace.MarketOrder;
+import com.cct.ie.designpatternscct.marketplace.MarketTransaction;
+import com.cct.ie.designpatternscct.marketplace.SingletonMarketPlace;
 
 /**
  *

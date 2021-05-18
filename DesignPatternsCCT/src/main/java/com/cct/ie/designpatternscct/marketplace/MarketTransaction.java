@@ -21,7 +21,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package marketplace;
+package com.cct.ie.designpatternscct.marketplace;
 
 import com.cct.ie.designpatternscct.Depot;
 import java.util.Date;
